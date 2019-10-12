@@ -3,11 +3,27 @@ import './bootstrap.min.css'
 
 import Header from './component/Header'
 import NuevaCita from './component/NuevaCita';
+import ListaCitas from './component/ListaCitas';
 
 
 class App extends Component  {
 
-  state = {}
+
+  state = {
+    citas : []
+  }
+
+  crearNuevaCita = datos => {
+    //console.log(datos);
+    //copiar el state actual
+    const citas = [...this.state.citas, datos]
+
+    // agregar el nuevo state
+    this.setState({
+      citas
+    })
+    
+  }
 
   render() {
 
@@ -18,7 +34,13 @@ class App extends Component  {
         <Header 
           titulo="Administrador  de Pacientes Veterinaria"
         />
-        <NuevaCita />
+        <NuevaCita
+        crearNuevaCita={this.crearNuevaCita}
+        />
+
+        <ListaCitas
+          citas = {this.state.citas}
+         />
 
       </div>
         

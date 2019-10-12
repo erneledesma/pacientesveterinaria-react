@@ -1,18 +1,26 @@
 import React ,{Component} from 'react'
+import uuid from 'uuid';
+
+const stateInicial = {
+
+    cita: {
+        mascota: '',
+        propietario: '',
+        fecha: '',
+        hora:'',
+        sintomas:''
+    },
+    error: false
+ }
+
+
+
 
 class NuevaCita extends Component {
-    state = { 
+    
+    state = {...stateInicial}
 
-        cita: {
-            mascota: '',
-            propietario: '',
-            fecha: '',
-            hora:'',
-            sintomas:''
-        },
-        error: false
-     }
-
+       
      handleChange = e => {
         // colocar lo que el usuario escribe en el state
         this.setState({
@@ -41,26 +49,34 @@ class NuevaCita extends Component {
                 return;
            }
 
+           // generar objeto cons los datos
+           const nuevaCita = {...this.state.cita};
+           nuevaCita.id = uuid();
+
+
               // agragar la cita al state de App
+              this.props.crearNuevaCita(nuevaCita)
 
-
+              //colocar en el state el stateInicial
+              this.setState({
+                  ...stateInicial
+              })
 
         }
 
-     
-
-     
-
-     
-
-
     render() { 
+
+        /// extrar valor del state
+        const {error} = this.state;
         return ( 
             <div className="card mt-5 py-5">
                 <div className="card-body">
                     <h2 className="card-title text-center mb-5">
                         Llene el formulario para crear una nueva cita
                     </h2>
+
+                    {error ? <div className="alert alert-danger mt-2 mb-5 
+                    text-center">Todos los campos son obligatorios</div> : null}
 
                 <form
                 onSubmit={this.handleSubmit}
