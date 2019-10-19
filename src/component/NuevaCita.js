@@ -14,8 +14,6 @@ const stateInicial = {
  }
 
 
-
-
 class NuevaCita extends Component {
     
     state = {...stateInicial}
@@ -49,7 +47,7 @@ class NuevaCita extends Component {
                 return;
            }
 
-           // generar objeto cons los datos
+           // generar objeto con los datos
            const nuevaCita = {...this.state.cita};
            nuevaCita.id = uuid();
 
